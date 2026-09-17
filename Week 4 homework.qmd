@@ -1,0 +1,116 @@
+---
+title: "Week 4 homework"
+format:
+  html: default
+  docx: default
+editor: visual
+---
+
+## Instructions
+
+Part 1. Draw the line y=4x+3 on a plot that ranges from -20 to +20 on both x and y. Label the line appropriately next to itself. Color the line in an interesting color! And make it dashed. Bonus Use a combination of the above options (plus others, if you feel like looking them up) to create the wildest looking series of lines on a graph that you can. (Remember, you can overplot lines!)
+
+# Part 1.
+
+```{r}
+graphics.off()
+
+plot(x=0,type='n',xlim=c(-20,20), ylim=c(-20,20),xlab = "X",ylab="Y",main = "Drawing an IMPORTANT line ")
+
+abline(a=3,
+  b=4,
+  col="seagreen3",
+  lwd=3,
+  lty="dashed")
+
+text(5,8,"y=4x+3",col = "black")
+
+
+```
+
+Part 2. Protected Lands Consider the protected_lands.csv dataset. This dataset contains information about a sample of countries sourced from the World Bank. Protected Lands represents the terrestrial protected land of a country as a percentage of total land area. GDP is represented in the dataset on a per capita (gdp_percap) as well as total basis (with total being measured in billions - tot_gdp_billions).
+
+Find the mean, standard deviation, and range of each of the three variables: protected lands, GDP per capita, and total GDP.
+
+Create a scatterplot where “protected lands” is on the Y axis and GDP per capita is on the X axis. Place a title on the graph and labels on the X and Y axis appropriately.
+
+Create a scatterplot where “protected lands” is on the Y axis and total GDP is on the X axis. Place a title on the graph and labels on the X and Y axis appropriately.
+
+Regress “protected lands” on GDP per capita.
+
+Create a scatterplot where “protected lands” is on the Y axis and GDP per capita is on the X axis. Then, overlay the plot with a best fit line.
+
+Regress “protected land” on total GDP.
+
+Create a scatterplot where “protected lands” is on the Y axis and total GDP is on the X axis. Then, overlay the plot with a best fit line.
+
+# Part 2.
+
+```{r}
+#1
+graphics.off()
+df <- data <- read.csv("~/Downloads/PAI 741/Data Sets/protected_lands.csv")
+
+
+#mean, standard deviation, and range
+mean(df$protected_lands)
+sd(df$protected_lands)
+range(df$protected_lands)
+
+mean(df$gdp_percap)
+sd(df$gdp_percap)
+range(df$gdp_percap)
+
+mean(df$tot_gdp_bilions)
+sd(df$tot_gdp_bilions)
+range(df$tot_gdp_bilions)
+
+```
+
+```{r}
+# 2
+plot(df$gdp_percap, df$protected_lands,
+     main = "Protected Lands vs GDP per Capita",
+     xlab = "GDP per Capita", 
+     ylab = "Protected Lands (%)")
+```
+
+```{r}
+# 3
+plot(df$tot_gdp_bilions, df$protected_lands,
+     main = "Protected Lands vs Total GDP",
+     xlab = "Total GDP (Billions)", 
+     ylab = "Protected Lands (%)")
+
+```
+
+```{r}
+# 4
+model1 <- lm(protected_lands ~ gdp_percap, data = df)
+summary(model1)
+
+```
+
+```{r}
+#5
+plot(df$gdp_percap, df$protected_lands,
+     main = "Protected Lands vs GDP per Capita",
+     xlab = "GDP per Capita", 
+     ylab = "Protected Lands (%)")
+abline(model1)
+```
+
+```{r}
+# 6
+model2 <- lm(protected_lands ~ tot_gdp_bilions, data = df)
+summary(model2)
+
+```
+
+```{r}
+# 7
+plot(df$tot_gdp_bilions, df$protected_lands,
+     main = "Protected Lands vs Total GDP",
+     xlab = "Total GDP (Billions)", ylab = "Protected Lands (%)")
+abline(model2)
+```
