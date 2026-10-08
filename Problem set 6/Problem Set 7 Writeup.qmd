@@ -1,0 +1,54 @@
+---
+title: "Bartels Replication"
+author: "Elliot Hidalgo"
+format:
+  pdf:
+    fig-pos: "H"
+
+---
+## Figures
+
+![Replication of Bartels (2000), Figure 1. Presidential years, 1952-1996.](<figures/Problem set 7/fig1_replication.png>){#fig-rep width=80%}
+
+{{< pagebreak >}}
+
+![Extension through 2020, cumulative file only. Weighted.](<figures/Problem set 7/fig1_through_2020.png>){#fig-2020 width=80%}
+
+{{< pagebreak >}}
+
+![Extension through 2024, adding the 2024 ANES. Weighted.](<figures/Problem set 7/fig1_through_2024.png>){#fig-2024 width=80%}
+
+{{< pagebreak >}}
+
+![All ANES years, including midterms, 1952-2024. Weighted.](<figures/Problem set 7/fig1_with_midterms.png>){#fig-mid width=80%}
+
+{{< pagebreak >}}
+
+![Affective polarization among partisans, 2020.](<figures/Problem set 7/univariate_affective_polarization.png>){#fig-affpol width=100%}
+
+![Importance of party identity, 2024.](<figures/Problem set 7/univariate_party_importance.png>){#fig-pimp width=100%}
+
+{{< pagebreak >}}
+
+## Write-up
+
+### 1. Where did I run into problems?
+
+Bartels never names his variables, so I worked backward from his footnote 2, which describes the party ID questions, and searched the codebook for the variable built from them. Weighting was the second problem. Bartels never says whether he weighted, and several years inside his window are weighted in the current file, including 1976 and 1996, the two years he gives numbers for. I compared both versions and kept unweighted because it came closer to his numbers.
+ I also leaned on AI for the graph styling. Most of the theme() settings were new to me, such as element_blank() for removing the panel titles and panel.spacing for making the two panels touch. The hardest part was the legend. Bartels has a separate legend inside each panel, but ggplot only makes one legend for a faceted graph, so I tried to draw the legends from a small table (key) using geom_segment() for the line, geom_point() for the circle, and geom_text() for the words. I also learned that point shapes are set by number (16 is a filled circle, 21 is an open circle filled with white). I checked the result by comparing my replication side by side with his Figure 1.
+
+Two things to check before you submit:
+
+### 2. What did Bartels find?
+
+Figure 1 shows the "partisan decline" of the 1960s and 1970s and then shows that it reversed. Strong identifiers bottomed out in 1976 and rose from 24% to 31% by 1996, while pure independents fell from 16% to 9%. Most of the growth in "independents" came from leaners, so the rise in independents overstated how much partisanship declined. Figure 2 shows where the decline happened. Among presidential voters, the share of identifiers barely moved (77% in 1952, 75% in 1996). Among nonvoters, it fell by almost 15 points. The decline was mostly among people who do not vote, so by 1996 the voting electorate was about as partisan as in the 1950s.
+
+### 3. Has anything changed since 1996?
+
+If anything, the pattern Bartels found has only gotten stronger since 1996. Strong identifiers made up 30% of the sample in 1996, 33% in 2004, and 44% by 2020, and stayed at 43% in 2024, well above any year in his original figure. Weak identifiers moved the other way, falling from 34% in 1996 to 22% by 2020. Pure independents held near 10% through 2020 and then dropped to 7% in 2024, below the 9% Bartels reported for 1996. Leaners did not follow a single trend. They rose from 26% in 1996 to 29% in 2004, fell to 22% by 2020, and climbed back to 28% in 2024. In other words, Americans are not just identifying with a party, they are identifying more strongly, and many people who used to call themselves weak partisans now call themselves strong ones.
+
+One caution is that ANES added web samples in 2012 and used a mix of in-person, web, and paper surveys in 2024. Some of the recent change could come from people answering differently online, the same issue I had with the GSS after 2021. The drop in pure independents from 12% in 2020 to 7% in 2024 is large for a four-year span, so it may partly reflect the new survey design. I also did not extend Figure 2, so I cannot say whether the gap between voters and nonvoters kept growing.
+
+### 4. Does adding midterm years change anything?
+
+When I added the midterm years, the overall story stayed the same, but the timing got clearer. Strong identifiers dropped from 38% in 1964 to 28% in 1966, so the decline started earlier than the presidential years show. The low point also moved from 1976 (24%) to 1978 (23%). I also noticed that during the decline, the midterm years were a little more independent than the presidential years around them. In 1966, pure independents were 12%, compared to 8% in 1964 and 11% in 1968. My guess is that presidential campaigns pull people back toward their party. That pattern goes away after 1980. Since ANES stopped doing midterm studies after 2002, the big rise in strong identifiers after 2004 only shows up in presidential years.
