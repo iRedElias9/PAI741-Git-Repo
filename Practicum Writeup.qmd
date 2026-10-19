@@ -1,0 +1,32 @@
+---
+title: "Practicum Writeup"
+author: "Elliot Hidalgo"
+format:
+  pdf:
+    fig-pos: "H"
+---
+## Figures
+
+![Replication of Bartels (2000), Figure 1, with the Cumulative CES. Presidential years, 2008-2024. Weighted.](<figures/bartels1_1presidential.pdf>){#fig-ces1-pres width=80%}
+
+{{< pagebreak >}}
+
+![Bartels (2000), Figure 1, with the Cumulative CES. Midterms included, 2006-2024. Weighted.](<figures/bartels1_2midterms.pdf>){#fig-ces1-mid width=80%}
+
+{{< pagebreak >}}
+
+![Replication of Bartels (2000), Figure 2, with the Cumulative CES. Presidential years, 2008-2024. Turnout is self-reported. Weighted.](<figures/bartels2_1presidential.pdf>){#fig-ces2-pres width=80%}
+
+{{< pagebreak >}}
+
+![Bartels (2000), Figure 2, with the Cumulative CES. Midterms included, 2006-2024. Turnout is self-reported. Weighted.](<figures/bartels2_2midterms.pdf>){#fig-ces2-mid width=80%}
+
+{{< pagebreak >}}
+
+
+## Write-up
+The main challenge was getting the CES data into a form R could use. In the file, answers like “Yes” and “No” are stored as numbers with labels attached. My code first tried to match the word “Yes” directly, and R gave an error. I fixed this by converting the numbers back into their labels before using them.
+
+A second problem was easier to miss because R did not flag it. My first version treated people with no party ID answer as if they were not partisans, instead of leaving them out. That made every proportion come out slightly too low. Once I removed those respondents first, the numbers were correct.
+
+I also had to decide how to measure who voted. The CES checks turnout against voter records, but that information is not available for 2024. I used people’s own reports of whether they voted instead, which is closer to what Bartels used. The downside is that about 90 percent of CES respondents say they voted. That leaves a fairly small group of nonvoters, who are probably not typical of nonvoters overall.

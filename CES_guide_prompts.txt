@@ -1,0 +1,28 @@
+I am using cumulative_2006-2024.dta located in /Users/elliothidalgo/Downloads/PAI 741/CCES 2006-2024 Cumulative
+
+what variable measurs ideology income or approval of the president
+
+which page covers weight
+
+no thats not right
+
+what does pid7 mean in the guide and what do codes 8 and 9 stand for
+
+is it true that odd years are smaller survays Give me the sample size for each year
+
+which years is voted_turnout_self availble and what are its limitatons
+
+   Error in `mutate()` at 1c6x32d124540sjbc8cl70t00000gn/T/.positron-untitled-1.R:37:1:
+   ℹ In argument: `turnout = case_when(...)`.
+   Caused by error in `case_when()`:
+   ! Failed to evaluate the left-hand side of formula 1.
+   Caused by error in `vec_equal()`:
+   ! Can't combine `..1` <character> and `..2` <double>.
+
+which variables are only asked in even years post election wave
+
+explain weight vs weight_cumulative vs weight_post Which should I use when I pool years
+
+check my R comments agianst the guide and tell me if any are wrong
+
+help me make my comments more succinct
