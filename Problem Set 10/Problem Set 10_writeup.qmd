@@ -1,0 +1,88 @@
+---
+title: "Problem Set 10: Election Maps"
+author: "Elliot Hidalgo"
+format:
+  pdf:
+    fig-pos: "H"
+---
+
+## AI Disclosure
+
+I used Claude, an AI assistant from Anthropic, to help me edit my R script and write-up. I mainly used it to troubleshoot issues I was having with my code, such as figuring out why I couldn't load data from the package, checking my code for loading and merging datasets, and fixing the map projection for my point maps after running into multiple errors. I also used Claude to clean up small grammar and punctuation mistakes throughout my write-up and make sure my labels and comments in the R script were clear and formatted consistently.
+
+# Data and Data Management
+
+The 2024 presidential results by state and county come from `election24` and `election24_county_df` in Healy's `socviz` package. The state and county map shapes, along with county population and percent Black, come from `states_sf` and `counties_sf` in the same package. The 2026 Senate and Governor returns are the preliminary file from the course drive (`midterms_2026_preliminary.csv`). The location of Syracuse University is the approximate latitude and longitude of the main campus (43.0379, -76.1351), which Ientered by hand. The city locations and populations for Question 5 come from `us.cities` in the `maps` package.
+
+No steps were done to the data before the R script. The 2026 file was used exactly as downloaded from the course drive.
+
+In the R script, I loaded Healy's data files directly from his GitHub repository because my version of R (4.4.2) is older than the 4.5 that `socviz` requires. The 2026 file has one row per candidate, so I collapsed it to one row per state per office. The winner is the candidate with the highest vote percent, and the margin is the top Republican's percent minus the top Democrat's percent. Florida's and Ohio's special Senate elections are counted as Senate races, and rows with no candidate are races with no results yet, so they were dropped. States were merged by the FIPS codes for 2024 and by two-letter abbreviation for 2026, and counties were merged by the five-digit FIPS codes.
+
+{{< pagebreak >}}
+
+# Question 1: 2024 Election
+
+![2024 presidential election winner by state.](~/1a_margin_by_state.png){#fig-state width="90%"}
+
+![2024 presidential margin by state, Trump percent minus Harris percent.](~/1a_margin_by_state.png){#fig-margin width="90%"}
+
+![2024 presidential election winner by county. Grey counties do not match the results file.](~/1b_winner_by_county.png){#fig-county width="90%"}
+
+![Population density by county, in people per square mile.](~/1c_pop_density_by_county.png){#fig-density width="90%"}
+
+![Percent Black population by county.](~/1d_pct_black_by_county.png){#fig-black width="90%"}
+
+Trump won 31 states and Harris won 19 plus the District of Columbia (@fig-state), though many were close, as the pale states in @fig-margin show. Trump carried 2,685 of 3,153 counties, but Harris’s 468 mostly urban and suburban counties held about as many people (@fig-county). Grey counties in Connecticut and Alaska use boundaries that differ from the results file. Population is highly concentrated, with 53% of residents in 268 dense counties covering about 4% of the land (@fig-density). Of the 384 counties at least 25% Black, 371 are in the South (@fig-black). {{< pagebreak >}}
+
+# Question 2: 2026 Senate and Governor Winners
+
+![2026 Senate winner by state, preliminary returns. Grey states had no race or no results yet.](~/2a_senate_winner_2026.png){#fig-senate width="90%"}
+
+![2026 Governor winner by state, preliminary returns. Grey states had no race or no results yet.](~/2b_governor_winner_2026.png){#fig-gov width="90%"}
+
+@fig-senate shows that Democrats lead in 14 of the 22 Senate races with results, Republicans lead in 7, and Mississippi is tied at 48.9 to 48.9. Idaho and Montana were Republican against Independent, so they have a winner but no Democratic candidate. @fig-gov shows that Democrats lead in 17 of the 20 governor races with results, and Republicans lead in Alabama, Arkansas, and Florida.
+
+{{< pagebreak >}}
+
+# Question 3: Swing from 2024 to 2026
+
+![Swing from the 2024 presidential election to the 2026 Senate, by state.](~/3a_senate_swing.png){#fig-swing-senate width="90%"}
+
+![Swing from the 2024 presidential election to the 2026 Governor races, by state.](~/3b_governor_swing.png){#fig-swing-gov width="90%"}
+
+Swing is the 2026 margin minus the 2024 presidential margin, both measured as Republican minus Democrat in points, so blue means a shift toward Democrats. Both maps share one scale. Grey states had no race, no results, or no Democrat versus Republican contest. Every comparable Senate race swung toward Democrats (@fig-swing-senate), with a median of 16 points and a high of 26 in Texas. Governor races swung toward Democrats in 19 of 20 states (@fig-swing-gov), with a median of 14 points. Oregon moved 8 points toward Republicans. {{< pagebreak >}}
+
+# Question 4: Syracuse University
+
+![Location of Syracuse University, marked with an orange star.](~/4_syracuse_university.png){#fig-su width="90%"}
+
+@fig-su marks Syracuse University with a large orange star in central New York.
+
+{{< pagebreak >}}
+
+# Question 5: Where Large U.S. Cities Are
+
+![Cities with 100,000 or more residents in the lower 48 states, sized by population.](~/5a_large_cities_points.png){#fig-cities width="90%"}
+
+![Share of each state's population living in cities of 100,000 or more.](~/5b_big_city_share_by_state.png){#fig-share width="90%"}
+
+![The ten states with the highest share of their population in cities of 100,000 or more.](~/5c_top10_big_city_states.png){#fig-top10 width="80%"}
+
+## Definition of the Maps
+
+My maps show where Americans living in large cities, those with 100,000 or more residents in the us.cities data, are found. @fig-cities places a circle sized by population at each of the 265 large cities in the lower 48 states. @fig-share shades each state by the percent of its population living in those cities, using state totals from counties_sf. The maps differ in both display (points versus filled states) and variable (city population versus a state percent). @fig-top10 ranks the ten highest states.
+
+## Summary
+
+Large cities cluster on the coasts, around the Great Lakes, and in Texas, while the Great Plains and Mountain West have few. The maps differ most in the West. Nevada and Arizona look nearly empty in @fig-cities, yet @fig-share ranks them among the most urban states, with 57% and 50% of residents in large cities, compared with 45% in New York. Six states have no large city, and the District of Columbia is an outlier at 82%. \## Limitations
+
+The `us.cities` populations are an older snapshot from the mid-2000s, so fast-growing cities are undercounted, and cities that passed 100,000 more recently are not included. State totals come from the more recent `counties_sf` data, so the DC percent was capped at 100. The 2026 results are preliminary and may change.
+
+{{< pagebreak >}}
+
+## Sources
+
+- Healy, Kieran. *Data Visualization: A Practical Introduction*, "Draw a Map." <https://socviz.co/07-maps.html>
+- Healy, Kieran. `socviz` package data files. <https://github.com/kjhealy/socviz>
+- 2026 midterm elections, preliminary returns. PAI 741 course drive.
+- `maps` R package, `us.cities` data. <https://cran.r-project.org/package=maps>
